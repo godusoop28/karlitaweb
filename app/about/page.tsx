@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { FadeIn, StaggerContainer, staggerItem } from "@/components/FadeIn";
 import { motion } from "framer-motion";
+import portraitSrc from "./retrato-principal.jpeg";
 
 const experience = [
   {
@@ -71,7 +73,7 @@ export default function AboutPage() {
       <section className="min-h-screen flex flex-col justify-end px-6 md:px-12 pb-16 md:pb-24 pt-32 relative overflow-hidden">
         <div
           className="absolute inset-0 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse 50% 40% at 80% 70%, rgba(130,80,210,0.04) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse 50% 40% at 80% 70%, rgba(130,80,210,0.06) 0%, transparent 70%), radial-gradient(ellipse 35% 30% at 15% 60%, rgba(210,95,140,0.04) 0%, transparent 65%)" }}
         />
         <div className="max-w-7xl mx-auto w-full">
           <FadeIn>
@@ -136,31 +138,30 @@ export default function AboutPage() {
       <div className="px-6 md:px-12">
         <div
           className="max-w-7xl mx-auto"
-          style={{ height: "1px", background: "rgba(255,255,255,0.06)" }}
+          style={{ height: "1px", background: "linear-gradient(to right, rgba(130,80,210,0.4), rgba(210,95,140,0.25), transparent)" }}
         />
       </div>
 
       {/* Bio section */}
-      <section className="py-24 md:py-40 px-6 md:px-12">
+      <section className="py-32 md:py-52 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-28 items-start">
-            {/* Portrait placeholder */}
+            {/* Portrait */}
             <FadeIn direction="left">
-              <div
-                className="relative aspect-[3/4] sticky top-24"
-                style={{ background: "#111111" }}
-              >
-                <p
-                  className="absolute bottom-5 left-5 text-[10px] tracking-[0.18em] uppercase"
-                  style={{ color: "rgba(255,255,255,0.1)", fontFamily: "var(--font-dm-sans)" }}
-                >
-                  retrato-principal.jpg — pendiente
-                </p>
+              <div className="purple-shadow relative aspect-[3/4] sticky top-24 overflow-hidden">
+                <Image
+                  src={portraitSrc}
+                  alt="Karlita Rodríguez"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center top" }}
+                  placeholder="blur"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
               </div>
             </FadeIn>
 
             {/* Text content */}
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-10">
               <FadeIn delay={0.1}>
                 <p
                   className="font-display text-2xl md:text-3xl leading-snug"
@@ -239,7 +240,7 @@ export default function AboutPage() {
 
       {/* Formation */}
       <section
-        className="py-24 md:py-36 px-6 md:px-12 border-t"
+        className="py-32 md:py-48 px-6 md:px-12 border-t"
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div className="max-w-7xl mx-auto">
@@ -253,12 +254,12 @@ export default function AboutPage() {
               </p>
             </FadeIn>
             <div className="md:col-span-8">
-              <StaggerContainer className="space-y-8">
+              <StaggerContainer className="space-y-0">
                 {formation.map((item) => (
                   <motion.div
                     key={item.title}
                     variants={staggerItem}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8 pb-8 border-b"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8 py-8 md:py-12 border-b"
                     style={{ borderColor: "rgba(255,255,255,0.05)" }}
                   >
                     <div>
@@ -293,7 +294,7 @@ export default function AboutPage() {
 
       {/* Experience */}
       <section
-        className="py-24 md:py-36 px-6 md:px-12 border-t"
+        className="py-32 md:py-48 px-6 md:px-12 border-t"
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div className="max-w-7xl mx-auto">
@@ -312,7 +313,7 @@ export default function AboutPage() {
                   <motion.div
                     key={item.org}
                     variants={staggerItem}
-                    className="py-8 border-b grid grid-cols-1 md:grid-cols-12 gap-4"
+                    className="py-10 md:py-14 border-b grid grid-cols-1 md:grid-cols-12 gap-4"
                     style={{ borderColor: "rgba(255,255,255,0.05)" }}
                   >
                     <div className="md:col-span-8">
@@ -353,7 +354,7 @@ export default function AboutPage() {
 
       {/* Skills */}
       <section
-        className="py-24 md:py-36 px-6 md:px-12 border-t"
+        className="py-32 md:py-48 px-6 md:px-12 border-t"
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div className="max-w-7xl mx-auto">
@@ -371,10 +372,8 @@ export default function AboutPage() {
                 <motion.span
                   key={skill}
                   variants={staggerItem}
-                  className="text-sm px-4 py-2 border transition-all duration-300 hover:border-opacity-30"
+                  className="skill-tag text-sm px-4 py-2"
                   style={{
-                    borderColor: "rgba(255,255,255,0.07)",
-                    color: "rgba(232,224,208,0.45)",
                     fontFamily: "var(--font-dm-sans)",
                   }}
                 >

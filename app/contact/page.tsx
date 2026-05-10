@@ -22,8 +22,9 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero */}
-      <section className="min-h-screen flex flex-col justify-end px-6 md:px-12 pb-20 pt-36">
-        <div className="max-w-7xl mx-auto w-full">
+      <section className="min-h-screen flex flex-col justify-end px-6 md:px-12 pb-24 md:pb-32 pt-36 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 20% 80%, rgba(130,80,210,0.06) 0%, transparent 65%), radial-gradient(ellipse 40% 35% at 85% 30%, rgba(210,95,140,0.04) 0%, transparent 60%)" }} />
+        <div className="max-w-7xl mx-auto w-full" style={{ position: "relative" }}>
           <FadeIn>
             <p
               className="text-xs tracking-[0.3em] uppercase mb-8"
@@ -71,7 +72,7 @@ export default function ContactPage() {
 
       {/* Contact info */}
       <section
-        className="py-24 md:py-36 px-6 md:px-12 border-t"
+        className="py-28 md:py-44 px-6 md:px-12 border-t"
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div className="max-w-7xl mx-auto">
@@ -86,13 +87,13 @@ export default function ContactPage() {
                 </p>
               </FadeIn>
 
-              <div className="space-y-12">
+              <div className="space-y-16 md:space-y-20">
                 {contactItems.map((item, i) => (
                   <FadeIn key={item.label} delay={i * 0.1}>
                     <div>
                       <p
                         className="text-xs tracking-[0.2em] uppercase mb-3"
-                        style={{ color: "rgba(232,224,208,0.2)", fontFamily: "var(--font-dm-sans)" }}
+                        style={{ color: "rgba(140,95,210,0.4)", fontFamily: "var(--font-dm-sans)" }}
                       >
                         {item.label}
                       </p>

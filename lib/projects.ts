@@ -120,36 +120,6 @@ export const projects: Project[] = [
     tags: ["Documental", "Activismo", "Derechos Reproductivos"],
     process: "",
   },
-  {
-    slug: "joe-t-hodo",
-    title: "Joe T.",
-    titleLine2: "Hodo",
-    subtitle: "Proyecto de Comedia Política",
-    year: "2024 — 2025",
-    category: "Fotografía de Eventos · Redes Sociales",
-    shortDescription:
-      "Creación de contenido, fotografía y cobertura visual del proyecto de comedia política Joe T. Hodo.",
-    description:
-      "Colaboración con el proyecto de comedia política Joe T. Hodo, documentando sus eventos, Gas Fest 2025, y creando contenido para redes sociales. Un ejercicio donde la fotografía de evento se convierte en narrativa cultural.",
-    featured: false,
-    tags: ["Eventos", "Cultura", "Contenido Digital"],
-    process: "",
-  },
-  {
-    slug: "mexico-en-ti",
-    title: "México",
-    titleLine2: "en Ti",
-    subtitle: "Fotografía de Producto",
-    year: "2024 — Actualidad",
-    category: "Fotografía Creativa · Redes Sociales",
-    shortDescription:
-      "Fotografía y video de producto para redes sociales, edición y publicación.",
-    description:
-      "Toma de fotografía y video de producto para redes sociales del proyecto México en Ti. Edición, publicación y desarrollo de contenido visual.",
-    featured: false,
-    tags: ["Producto", "Redes Sociales", "Fotografía Creativa"],
-    process: "",
-  },
 ]
 
 export function getProjectBySlug(slug: string): Project | undefined {

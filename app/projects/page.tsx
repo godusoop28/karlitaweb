@@ -11,7 +11,7 @@ export default function ProjectsPage() {
   return (
     <>
       {/* Header */}
-      <section className="pt-44 md:pt-64 pb-16 px-6 md:px-12">
+      <section className="page-header-offset pb-16 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="overflow-hidden mb-3">
             <motion.h1
@@ -55,7 +55,7 @@ export default function ProjectsPage() {
               <motion.div key={project.slug} variants={staggerItem}>
                 <Link href={`/projects/${project.slug}`} className="block group">
                   <div
-                    className="grid grid-cols-12 gap-4 md:gap-8 py-16 md:py-24 border-b transition-all duration-500"
+                    className="project-item grid grid-cols-12 gap-4 md:gap-8 py-20 md:py-28 border-b"
                     style={{ borderColor: "rgba(255,255,255,0.07)" }}
                   >
                     {/* Number */}
@@ -69,7 +69,7 @@ export default function ProjectsPage() {
                     </div>
 
                     {/* Main content */}
-                    <div className="col-span-10 md:col-span-7">
+                    <div className="col-span-9 md:col-span-7">
                       {/* Category tag */}
                       <p
                         className="text-xs tracking-[0.2em] uppercase mb-4"
@@ -107,7 +107,7 @@ export default function ProjectsPage() {
                     </div>
 
                     {/* Right side — year + arrow */}
-                    <div className="col-span-1 md:col-span-4 flex flex-col items-end justify-between">
+                    <div className="col-span-2 md:col-span-4 flex flex-col items-end justify-between">
                       <span
                         className="text-xs text-right"
                         style={{ color: "rgba(232,224,208,0.2)", fontFamily: "var(--font-dm-sans)" }}

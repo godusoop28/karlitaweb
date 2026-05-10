@@ -3,16 +3,49 @@
 import { use } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
+import type { StaticImageData } from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { FadeIn, StaggerContainer, staggerItem } from "@/components/FadeIn";
 import { getProjectBySlug, projects } from "@/lib/projects";
+
+// ── Fotos de galería para cada proyecto ───────────────────────────────────────
+import g1  from "@/app/gallery/1.jpeg";
+import g2  from "@/app/gallery/2.jpeg";
+import g3  from "@/app/gallery/3.jpeg";
+import g5  from "@/app/gallery/5.jpeg";
+import g7  from "@/app/gallery/7.jpeg";
+import g8  from "@/app/gallery/8.jpeg";
+import g24 from "@/app/gallery/24.jpeg";
+import noMeChiflesImg  from "@/app/gallery/no-me-chifles.jpeg";
+import vulvaDentadaImg from "@/app/gallery/vulva-dentada.jpeg";
+
+const projectPhotos: Record<string, { src: StaticImageData; label: string }[]> = {
+  "no-me-chifles": [
+    { src: noMeChiflesImg, label: "No Me Chifles — Cartel" },
+    { src: vulvaDentadaImg, label: "Vulva Dentada" },
+    { src: g5, label: "No me chifles" },
+  ],
+  "8-de-marzo": [
+    { src: g1, label: "8M — Cuernavaca, 2023" },
+    { src: g2, label: "Marcha Feminista, 2023" },
+    { src: g3, label: "8M — Plaza de Armas, 2023" },
+    { src: g7, label: "8 de Marzo, 2022" },
+  ],
+  "despenalizacion-aborto": [
+    { src: g8,  label: "28S — Las siguientes tres, 2024" },
+    { src: g24, label: "28S, 2023" },
+  ],
+};
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 function GenericProject({ slug }: { slug: string }) {
   const project = getProjectBySlug(slug);
   if (!project) return notFound();
+
+  const photos = projectPhotos[slug] ?? [];
 
   return (
     <>
@@ -22,7 +55,7 @@ function GenericProject({ slug }: { slug: string }) {
           <FadeIn>
             <p
               className="text-xs tracking-[0.3em] uppercase mb-6"
-              style={{ color: "rgba(139,123,139,0.7)", fontFamily: "var(--font-dm-sans)" }}
+              style={{ color: "rgba(140,95,210,0.6)", fontFamily: "var(--font-dm-sans)" }}
             >
               {project.category}
             </p>
@@ -68,26 +101,20 @@ function GenericProject({ slug }: { slug: string }) {
             animate={{ scaleX: 1 }}
             transition={{ duration: 1.1, delay: 0.8, ease: EASE }}
             className="my-6"
-            style={{ height: "1px", background: "rgba(255,255,255,0.08)" }}
+            style={{ height: "1px", background: "linear-gradient(to right, rgba(130,80,210,0.45), rgba(210,95,140,0.3), rgba(70,165,120,0.22), transparent)" }}
           />
 
           <FadeIn delay={0.9}>
-            <div className="flex flex-col md:flex-row gap-6 md:items-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-8 sm:items-center">
               <p
                 className="text-sm"
                 style={{ color: "rgba(232,224,208,0.35)", fontFamily: "var(--font-dm-sans)" }}
               >
                 {project.subtitle}
               </p>
-              <span
-                style={{ color: "rgba(255,255,255,0.1)", display: "none" }}
-                className="md:block"
-              >
-                ·
-              </span>
               <p
                 className="text-sm"
-                style={{ color: "rgba(232,224,208,0.25)", fontFamily: "var(--font-dm-sans)" }}
+                style={{ color: "rgba(232,224,208,0.2)", fontFamily: "var(--font-dm-sans)" }}
               >
                 {project.year}
               </p>
@@ -117,8 +144,48 @@ function GenericProject({ slug }: { slug: string }) {
         </div>
       </section>
 
+      {/* Photo gallery */}
+      {photos.length > 0 && (
+        <section
+          className="py-16 md:py-28 px-6 md:px-12 border-t"
+          style={{ borderColor: "rgba(255,255,255,0.06)" }}
+        >
+          <div className="max-w-7xl mx-auto">
+            <FadeIn>
+              <p
+                className="text-xs tracking-[0.3em] uppercase mb-10 md:mb-14"
+                style={{ color: "rgba(232,224,208,0.2)", fontFamily: "var(--font-dm-sans)" }}
+              >
+                Registro Fotográfico
+              </p>
+            </FadeIn>
+            <div className={`grid gap-3 md:gap-4 ${photos.length === 2 ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1 md:grid-cols-2"}`}>
+              {photos.map((photo, i) => (
+                <FadeIn key={i} delay={i * 0.1}>
+                  <div className="relative overflow-hidden" style={{ aspectRatio: "4/3" }}>
+                    <Image
+                      src={photo.src}
+                      alt={photo.label}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      placeholder="blur"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 px-4 py-3" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)" }}>
+                      <p className="text-xs tracking-[0.12em] uppercase" style={{ color: "rgba(140,95,210,0.7)", fontFamily: "var(--font-dm-sans)" }}>
+                        {photo.label}
+                      </p>
+                    </div>
+                  </div>
+                </FadeIn>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Back link */}
-      <section className="py-16 px-6 md:px-12">
+      <section className="py-16 px-6 md:px-12 border-t" style={{ borderColor: "rgba(255,255,255,0.04)" }}>
         <div className="max-w-7xl mx-auto">
           <Link
             href="/projects"
@@ -171,7 +238,7 @@ function NoMeChifles() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.4, ease: EASE }}
             className="text-xs tracking-[0.35em] uppercase mb-10"
-            style={{ color: "rgba(139,123,139,0.6)", fontFamily: "var(--font-dm-sans)" }}
+            style={{ color: "rgba(140,95,210,0.6)", fontFamily: "var(--font-dm-sans)" }}
           >
             Arte Documental · Activismo Social · Morelos, 2023
           </motion.p>
@@ -251,7 +318,7 @@ function NoMeChifles() {
 
       {/* ABOUT / ANTECEDENTES */}
       <section
-        className="py-32 md:py-52 px-6 md:px-12 border-t"
+        className="py-36 md:py-56 px-6 md:px-12 border-t"
         style={{ borderColor: "rgba(255,255,255,0.05)" }}
       >
         <div className="max-w-7xl mx-auto">
@@ -371,7 +438,7 @@ function NoMeChifles() {
         className="py-32 md:py-52 px-6 md:px-12"
         style={{
           background:
-            "linear-gradient(to bottom, transparent, rgba(139,123,139,0.03) 30%, rgba(139,123,139,0.03) 70%, transparent)",
+            "linear-gradient(to bottom, transparent, rgba(130,80,210,0.05) 30%, rgba(130,80,210,0.05) 70%, transparent)",
         }}
       >
         <div className="max-w-7xl mx-auto">
@@ -395,7 +462,7 @@ function NoMeChifles() {
                     className="font-display leading-none mb-4"
                     style={{
                       fontSize: "clamp(52px, 8vw, 100px)",
-                      color: "#8b7b8b",
+                      color: "rgba(130,80,210,0.75)",
                       fontWeight: 300,
                     }}
                   >
@@ -454,7 +521,7 @@ function NoMeChifles() {
                   <motion.div
                     key={i}
                     variants={staggerItem}
-                    className="py-10 md:py-14 border-b"
+                    className="py-12 md:py-16 border-b"
                     style={{ borderColor: "rgba(255,255,255,0.05)" }}
                   >
                     <div className="flex gap-6 md:gap-10">
@@ -554,31 +621,19 @@ function NoMeChifles() {
                 </div>
               </FadeIn>
 
-              {/* Poster placeholders */}
+              {/* Poster photos */}
               <FadeIn delay={0.4}>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-8">
-                  {[1, 2, 3].map((n) => (
-                    <div
-                      key={n}
-                      className="relative img-placeholder"
-                      style={{ aspectRatio: "3/4" }}
-                    >
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center">
-                          <p
-                            className="font-display text-3xl md:text-4xl"
-                            style={{ color: "rgba(255,255,255,0.05)", fontWeight: 300 }}
-                          >
-                            P.{String(n).padStart(2, "0")}
-                          </p>
-                          <p
-                            className="text-xs tracking-[0.12em] uppercase mt-3"
-                            style={{ color: "rgba(255,255,255,0.05)", fontFamily: "var(--font-dm-sans)" }}
-                          >
-                            Pieza Final
-                          </p>
-                        </div>
-                      </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-8">
+                  {projectPhotos["no-me-chifles"].map((photo, i) => (
+                    <div key={i} className="relative overflow-hidden" style={{ aspectRatio: "3/4" }}>
+                      <Image
+                        src={photo.src}
+                        alt={photo.label}
+                        fill
+                        style={{ objectFit: "cover" }}
+                        placeholder="blur"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
                     </div>
                   ))}
                 </div>

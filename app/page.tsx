@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { FadeIn, StaggerContainer, staggerItem } from "@/components/FadeIn";
 import { getFeaturedProjects } from "@/lib/projects";
 import logoSrc from "./logo.png";
+import portraitSrc from "./about/retrato-principal.jpeg";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 const PX = "px-6 md:px-10 lg:px-14";
@@ -190,7 +191,7 @@ function Hero() {
 
 function Statement() {
   return (
-    <section className={`py-24 md:py-44 ${PX}`}>
+    <section className={`py-32 md:py-52 ${PX}`}>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
           <FadeIn className="hidden md:block md:col-span-1" direction="none">
@@ -233,10 +234,10 @@ function FeaturedProjects() {
   const projects = getFeaturedProjects();
 
   return (
-    <section className={`py-16 md:py-32 ${PX}`}>
+    <section className={`py-24 md:py-44 ${PX}`}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="flex items-end justify-between mb-10 md:mb-16">
+        <div className="flex items-end justify-between mb-14 md:mb-20">
           <FadeIn>
             <p
               className="text-[10px] md:text-xs tracking-[0.25em] uppercase"
@@ -262,7 +263,7 @@ function FeaturedProjects() {
             <motion.div key={project.slug} variants={staggerItem}>
               <Link href={`/projects/${project.slug}`} className="block group">
                 <div
-                  className="py-7 md:py-10 border-t transition-all duration-500"
+                  className="py-10 md:py-14 border-t transition-all duration-500"
                   style={{ borderColor: "rgba(255,255,255,0.06)" }}
                 >
                   <div className="flex items-start justify-between gap-4">
@@ -271,7 +272,7 @@ function FeaturedProjects() {
                       {/* Index */}
                       <span
                         className="text-xs pt-1 flex-shrink-0"
-                        style={{ color: "rgba(232,224,208,0.15)", fontFamily: "var(--font-dm-sans)" }}
+                        style={{ color: "rgba(130,80,210,0.3)", fontFamily: "var(--font-dm-sans)" }}
                       >
                         0{i + 1}
                       </span>
@@ -338,39 +339,25 @@ function FeaturedProjects() {
 
 function AboutTeaser() {
   return (
-    <section className={`py-16 md:py-36 ${PX}`}>
+    <section className={`py-28 md:py-48 ${PX}`}>
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
-          {/* Portrait placeholder */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
+          {/* Portrait */}
           <FadeIn direction="left">
-            <div
-              className="relative img-placeholder"
-              style={{ aspectRatio: "4/5", background: "linear-gradient(135deg, #141414, #0d0d0d)" }}
-            >
-              <div className="absolute inset-4 border" style={{ borderColor: "rgba(255,255,255,0.04)" }} />
-              <div className="absolute inset-0 flex items-center justify-center flex-col gap-3">
-                <p
-                  className="font-display"
-                  style={{ fontSize: "clamp(48px,8vw,90px)", color: "rgba(255,255,255,0.04)", fontWeight: 300 }}
-                >
-                  K.R.
-                </p>
-                <p
-                  className="text-[10px] tracking-[0.2em] uppercase"
-                  style={{ color: "rgba(255,255,255,0.06)", fontFamily: "var(--font-dm-sans)" }}
-                >
-                  Agregar: retrato-principal.jpg
-                </p>
-              </div>
-              <div
-                className="absolute left-0 top-0 bottom-0 w-px"
-                style={{ background: "linear-gradient(to bottom, transparent, rgba(139,123,139,0.35), transparent)" }}
+            <div className="purple-shadow relative overflow-hidden" style={{ aspectRatio: "4/5" }}>
+              <Image
+                src={portraitSrc}
+                alt="Karlita Rodríguez"
+                fill
+                style={{ objectFit: "cover", objectPosition: "center top" }}
+                placeholder="blur"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </FadeIn>
 
           {/* Text */}
-          <div className="flex flex-col gap-5 md:gap-6">
+          <div className="flex flex-col gap-6 md:gap-8">
             <FadeIn delay={0.1}>
               <p className="text-[10px] md:text-xs tracking-[0.28em] uppercase" style={{ color: "rgba(232,224,208,0.22)", fontFamily: "var(--font-dm-sans)" }}>
                 Sobre mí
@@ -424,8 +411,8 @@ function AboutTeaser() {
 function NoMeChiflesHighlight() {
   return (
     <section
-      className={`py-16 md:py-36 ${PX}`}
-      style={{ background: "linear-gradient(to bottom, transparent, rgba(139,123,139,0.03) 50%, transparent)" }}
+      className={`py-28 md:py-52 ${PX}`}
+      style={{ background: "linear-gradient(to bottom, transparent, rgba(130,80,210,0.04) 30%, rgba(130,80,210,0.04) 70%, transparent)" }}
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 items-center">
@@ -442,7 +429,7 @@ function NoMeChiflesHighlight() {
                 No Me<br />
                 <span style={{ fontStyle: "italic", color: "rgba(232,224,208,0.5)" }}>Chifles</span>
               </h2>
-              <p className="text-[10px] md:text-xs tracking-[0.18em] uppercase mb-7" style={{ color: "rgba(139,123,139,0.65)", fontFamily: "var(--font-dm-sans)" }}>
+              <p className="text-[10px] md:text-xs tracking-[0.18em] uppercase mb-7" style={{ color: "rgba(140,95,210,0.65)", fontFamily: "var(--font-dm-sans)" }}>
                 Acoso Callejero en Morelos · 2023
               </p>
               <Link
@@ -473,7 +460,7 @@ function NoMeChiflesHighlight() {
               </p>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-5 md:gap-8">
+              <div className="grid grid-cols-3 gap-6 md:gap-10">
                 {[
                   { v: "77%", l: "Acoso en escuela u hogar" },
                   { v: "71%", l: "Desde los 13-15 años" },
@@ -482,7 +469,7 @@ function NoMeChiflesHighlight() {
                   <div key={s.v}>
                     <p
                       className="font-display mb-1.5"
-                      style={{ fontSize: "clamp(26px, 4vw, 44px)", color: "#8b7b8b", fontWeight: 300 }}
+                      style={{ fontSize: "clamp(26px, 4vw, 44px)", color: "rgba(130,80,210,0.75)", fontWeight: 300 }}
                     >
                       {s.v}
                     </p>
@@ -505,8 +492,9 @@ function NoMeChiflesHighlight() {
 
 function ContactCTA() {
   return (
-    <section className={`py-24 md:py-48 ${PX}`}>
-      <div className="max-w-7xl mx-auto text-center">
+    <section className={`py-32 md:py-56 ${PX}`} style={{ position: "relative", overflow: "hidden" }}>
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(130,80,210,0.06) 0%, transparent 70%)" }} />
+      <div className="max-w-7xl mx-auto text-center" style={{ position: "relative" }}>
         <FadeIn>
           <p className="text-[10px] md:text-xs tracking-[0.25em] uppercase mb-7" style={{ color: "rgba(232,224,208,0.2)", fontFamily: "var(--font-dm-sans)" }}>
             Contacto

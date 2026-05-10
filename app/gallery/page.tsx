@@ -33,6 +33,8 @@ import p23 from "./23.jpeg";
 import p24 from "./24.jpeg";
 import p25 from "./25.jpeg";
 import p26 from "./26.jpeg";
+import p27 from "./no-me-chifles.jpeg";
+import p28 from "./vulva-dentada.jpeg";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -50,51 +52,35 @@ const photos: Photo[] = [
   { src: p2,  id: 2,  category: "Feminismo",  label: "Marcha Feminista",               year: "2023" },
   { src: p3,  id: 3,  category: "Feminismo",  label: "8M — Plaza de Armas",            year: "2023" },
   { src: p4,  id: 4,  category: "Feminismo",  label: "Manifestación",                  year: "2021" },
-  { src: p5,  id: 5,  category: "Feminismo",  label: "8M — Cuernavaca",                year: "2021" },
-  { src: p6,  id: 6,  category: "Feminismo",  label: "Marcha 8M",                      year: "2021" },
-  { src: p7,  id: 7,  category: "Feminismo",  label: "28S — Despenalización",          year: "2022" },
-  { src: p8,  id: 8,  category: "Feminismo",  label: "Despenalización del Aborto",     year: "2024" },
+  { src: p5,  id: 5,  category: "Feminismo",  label: "No me chifles",                year: "2021" },
+  { src: p6,  id: 6,  category: "Feminismo",  label: "Autorretrato",                      year: "2021" },
+  { src: p7,  id: 7,  category: "Feminismo",  label: "8 de marzo",          year: "2022" },
+  { src: p8,  id: 8,  category: "Feminismo",  label: "28S las siguientes tres",     year: "2024" },
   { src: p9,  id: 9,  category: "Documental", label: "Registro Urbano",                year: "2023" },
   { src: p10, id: 10, category: "Documental", label: "Documentación Social",           year: "2023" },
-  { src: p11, id: 11, category: "Documental", label: "Cuernavaca",                     year: "2022" },
-  { src: p12, id: 12, category: "Documental", label: "Memoria Visual",                 year: "2022" },
-  { src: p13, id: 13, category: "Eventos",    label: "Joe T. Hodo",                    year: "2024" },
-  { src: p14, id: 14, category: "Eventos",    label: "Gas Fest",                       year: "2025" },
-  { src: p15, id: 15, category: "Eventos",    label: "Evento Cultural",                year: "2025" },
-  { src: p16, id: 16, category: "Eventos",    label: "UAEM — Facultad de Artes",       year: "2024" },
-  { src: p17, id: 17, category: "Eventos",    label: "Facultad de Artes",              year: "2023" },
-  { src: p18, id: 18, category: "Eventos",    label: "Turismo y Cultura de Morelos",   year: "2022" },
-  { src: p19, id: 19, category: "Eventos",    label: "Evento Cultural UAEM",           year: "2023" },
-  { src: p20, id: 20, category: "Creativa",   label: "México en Ti — Producto",        year: "2024" },
-  { src: p21, id: 21, category: "Creativa",   label: "Fotografía de Producto",         year: "2024" },
-  { src: p22, id: 22, category: "Creativa",   label: "Fotografía Creativa",            year: "2025" },
-  { src: p23, id: 23, category: "Creativa",   label: "Serie Creativa",                 year: "2025" },
-  { src: p24, id: 24, category: "Documental", label: "Archivo Visual",                 year: "2023" },
-  { src: p25, id: 25, category: "Documental", label: "Registro Documental",            year: "2022" },
-  { src: p26, id: 26, category: "Documental", label: "Fotografía Documental",          year: "2022" },
+  { src: p11, id: 11, category: "Documental", label: "Obra de teatro",                     year: "2022" },
+  { src: p12, id: 12, category: "Documental", label: "Chinela",                 year: "2022" },
+  { src: p13, id: 13, category: "Eventos",    label: "Sin título",                    year: "2024" },
+  { src: p14, id: 14, category: "Eventos",    label: "Juanita",                       year: "2025" },
+  { src: p15, id: 15, category: "Eventos",    label: "Obra de teatro",                year: "2025" },
+  { src: p16, id: 16, category: "Eventos",    label: "Orquesta",       year: "2024" },
+  { src: p17, id: 17, category: "Eventos",    label: "Performance",              year: "2023" },
+  { src: p18, id: 18, category: "Eventos",    label: "Performance",   year: "2022" },
+  { src: p19, id: 19, category: "Eventos",    label: "Danza contemporánea",           year: "2023" },
+  { src: p20, id: 20, category: "Creativa",   label: "Danza contemporánea",        year: "2024" },
+  { src: p21, id: 21, category: "Creativa",   label: "Miquixtli, Cuernavaca",         year: "2024" },
+  { src: p22, id: 22, category: "Creativa",   label: "Miquixtli, Cuernavaca",            year: "2025" },
+  { src: p23, id: 23, category: "Creativa",   label: "En el obturador",                 year: "2025" },
+  { src: p24, id: 24, category: "Documental", label: "28S",                 year: "2023" },
+  { src: p25, id: 25, category: "Documental", label: "Fotografía urbana",            year: "2022" },
+  { src: p26, id: 26, category: "Documental", label: "Vendaval",          year: "2022" },
+  { src: p27, id: 27, category: "Arte",        label: "No Me Chifles — Cartel",       year: "2023" },
+  { src: p28, id: 28, category: "Arte",        label: "Vulva Dentada",                year: "2023" },
 ];
 
 
 // ── Fotografías sugeridas (pendientes) ────────────────────────────────────────
 const pendingPhotos = [
-  {
-    id: 101,
-    filename: "retrato-principal.jpg",
-    description: "Retrato de Karlita — portada del sitio y sección Sobre mí",
-    hint: "Vertical 3:4, luz natural o estudio.",
-  },
-  {
-    id: 102,
-    filename: "no-me-chifles-cartel.jpg",
-    description: "Carteles 'No Me Chifles' pegados en espacios urbanos",
-    hint: "Intervención en calle, Cuernavaca.",
-  },
-  {
-    id: 103,
-    filename: "no-me-chifles-proceso.jpg",
-    description: "Proceso creativo de los posters — bocetos o impresiones",
-    hint: "Flat lay 75×60cm piezas finales.",
-  },
   {
     id: 104,
     filename: "8m-horizontal.jpg",
@@ -253,8 +239,9 @@ function GalleryCard({ photo, index, onClick }: { photo: Photo; index: number; o
           justifyContent: "center",
           position: "relative",
           overflow: "hidden",
-          borderBottom: hovered ? "1px solid rgba(130,80,210,0.25)" : "1px solid transparent",
-          transition: "border-color 0.4s ease",
+          borderBottom: hovered ? "1px solid rgba(130,80,210,0.4)" : "1px solid transparent",
+          boxShadow: hovered ? "0 8px 32px rgba(130,80,210,0.12)" : "none",
+          transition: "border-color 0.4s ease, box-shadow 0.4s ease",
         }}
       >
         {/* Inner container for the photo — fills frame after padding */}
@@ -350,7 +337,7 @@ export default function GalleryPage() {
   return (
     <>
       {/* ── Header ── */}
-      <section className="pt-44 md:pt-64 pb-10 md:pb-14 px-6 md:px-10 lg:px-14">
+      <section className="page-header-offset pb-10 md:pb-14 px-6 md:px-10 lg:px-14">
         <div className="max-w-7xl mx-auto">
           <div className="overflow-hidden mb-5">
             <motion.h1
@@ -388,7 +375,7 @@ export default function GalleryPage() {
            object-fit: contain — muestra la foto completa sin recortar. */}
       <section className="pb-20 md:pb-32 px-6 md:px-10 lg:px-14">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
             {photos.map((photo, idx) => (
               <GalleryCard
                 key={photo.id}
