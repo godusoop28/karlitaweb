@@ -55,7 +55,7 @@ const photos: Photo[] = [
   { src: p5,  id: 5,  category: "Feminismo",  label: "No me chifles",                year: "2021" },
   { src: p6,  id: 6,  category: "Feminismo",  label: "Autorretrato",                      year: "2021" },
   { src: p7,  id: 7,  category: "Feminismo",  label: "8 de marzo",          year: "2022" },
-  { src: p8,  id: 8,  category: "Feminismo",  label: "28S las siguientes tres",     year: "2024" },
+  { src: p8,  id: 8,  category: "Feminismo",  label: "28S",     year: "2024" },
   { src: p9,  id: 9,  category: "Documental", label: "Registro Urbano",                year: "2023" },
   { src: p10, id: 10, category: "Documental", label: "Documentación Social",           year: "2023" },
   { src: p11, id: 11, category: "Documental", label: "Obra de teatro",                     year: "2022" },
