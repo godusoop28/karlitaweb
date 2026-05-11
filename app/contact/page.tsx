@@ -67,7 +67,7 @@ export default function ContactPage() {
 
       {/* Contact info */}
       <section
-        className="py-28 md:py-44 px-6 md:px-12 border-t"
+        className="py-14 md:py-44 px-6 md:px-12 border-t"
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div className="max-w-7xl mx-auto">
@@ -94,8 +94,8 @@ export default function ContactPage() {
                       </p>
                       <a
                         href={item.href}
-                        className="font-display link-hover block w-fit"
-                        style={{ fontSize: "clamp(24px, 3.5vw, 48px)", color: "#e8e0d0", fontWeight: 300 }}
+                        className="font-display link-hover block max-w-full break-all"
+                        style={{ fontSize: "clamp(16px, 3.5vw, 48px)", color: "#e8e0d0", fontWeight: 300 }}
                       >
                         {item.value}
                       </a>
@@ -127,7 +127,7 @@ export default function ContactPage() {
 
       {/* Editorial closing */}
       <section
-        className="py-32 md:py-48 px-6 md:px-12 border-t text-center"
+        className="py-14 md:py-48 px-6 md:px-12 border-t text-center"
         style={{ borderColor: "rgba(255,255,255,0.04)" }}
       >
         <div className="max-w-3xl mx-auto">

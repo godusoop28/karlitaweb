@@ -87,7 +87,7 @@ function Hero() {
             transition={{ duration: 1.2, delay: 0.18, ease: EASE }}
             className="font-display leading-none"
             style={{
-              fontSize: "clamp(58px, 13vw, 190px)",
+              fontSize: "clamp(44px, 13vw, 190px)",
               color: "#e8e0d0",
               fontWeight: 300,
               letterSpacing: "-0.01em",
@@ -106,7 +106,7 @@ function Hero() {
               transition={{ duration: 1.2, delay: 0.32, ease: EASE }}
               className="font-display leading-none"
               style={{
-                fontSize: "clamp(58px, 13vw, 190px)",
+                fontSize: "clamp(44px, 13vw, 190px)",
                 color: "#e8e0d0",
                 fontWeight: 300,
                 letterSpacing: "-0.01em",
@@ -191,7 +191,7 @@ function Hero() {
 
 function Statement() {
   return (
-    <section className={`py-32 md:py-52 ${PX}`}>
+    <section className={`py-16 md:py-52 ${PX}`}>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
           <FadeIn className="hidden md:block md:col-span-1" direction="none">
@@ -234,7 +234,7 @@ function FeaturedProjects() {
   const projects = getFeaturedProjects();
 
   return (
-    <section className={`py-24 md:py-44 ${PX}`}>
+    <section className={`py-14 md:py-44 ${PX}`}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-end justify-between mb-14 md:mb-20">
@@ -339,7 +339,7 @@ function FeaturedProjects() {
 
 function AboutTeaser() {
   return (
-    <section className={`py-28 md:py-48 ${PX}`}>
+    <section className={`py-14 md:py-48 ${PX}`}>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
           {/* Portrait */}
@@ -411,7 +411,7 @@ function AboutTeaser() {
 function NoMeChiflesHighlight() {
   return (
     <section
-      className={`py-28 md:py-52 ${PX}`}
+      className={`py-14 md:py-52 ${PX}`}
       style={{ background: "linear-gradient(to bottom, transparent, rgba(130,80,210,0.04) 30%, rgba(130,80,210,0.04) 70%, transparent)" }}
     >
       <div className="max-w-7xl mx-auto">
@@ -460,7 +460,7 @@ function NoMeChiflesHighlight() {
               </p>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-6 md:gap-10">
+              <div className="grid grid-cols-3 gap-3 md:gap-10">
                 {[
                   { v: "77%", l: "Acoso en escuela u hogar" },
                   { v: "71%", l: "Desde los 13-15 años" },
@@ -469,7 +469,7 @@ function NoMeChiflesHighlight() {
                   <div key={s.v}>
                     <p
                       className="font-display mb-1.5"
-                      style={{ fontSize: "clamp(26px, 4vw, 44px)", color: "rgba(130,80,210,0.75)", fontWeight: 300 }}
+                      style={{ fontSize: "clamp(20px, 5.5vw, 44px)", color: "rgba(130,80,210,0.75)", fontWeight: 300 }}
                     >
                       {s.v}
                     </p>
@@ -492,7 +492,7 @@ function NoMeChiflesHighlight() {
 
 function ContactCTA() {
   return (
-    <section className={`py-32 md:py-56 ${PX}`} style={{ position: "relative", overflow: "hidden" }}>
+    <section className={`py-16 md:py-56 ${PX}`} style={{ position: "relative", overflow: "hidden" }}>
       <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(130,80,210,0.06) 0%, transparent 70%)" }} />
       <div className="max-w-7xl mx-auto text-center" style={{ position: "relative" }}>
         <FadeIn>

@@ -92,7 +92,7 @@ export default function AboutPage() {
               transition={{ duration: 1.2, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
               className="font-display leading-none"
               style={{
-                fontSize: "clamp(56px, 12vw, 170px)",
+                fontSize: "clamp(42px, 12vw, 170px)",
                 color: "#e8e0d0",
                 fontWeight: 300,
               }}
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 transition={{ duration: 1.2, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
                 className="font-display leading-none"
                 style={{
-                  fontSize: "clamp(56px, 12vw, 170px)",
+                  fontSize: "clamp(42px, 12vw, 170px)",
                   color: "rgba(232,224,208,0.3)",
                   fontWeight: 300,
                   fontStyle: "italic",
@@ -143,12 +143,12 @@ export default function AboutPage() {
       </div>
 
       {/* Bio section */}
-      <section className="py-32 md:py-52 px-6 md:px-12">
+      <section className="py-16 md:py-52 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-28 items-start">
             {/* Portrait */}
             <FadeIn direction="left">
-              <div className="purple-shadow relative aspect-[3/4] sticky top-24 overflow-hidden">
+              <div className="purple-shadow relative aspect-[3/4] md:sticky md:top-24 overflow-hidden">
                 <Image
                   src={portraitSrc}
                   alt="Karlita Rodríguez"
@@ -236,7 +236,7 @@ export default function AboutPage() {
 
       {/* Formation */}
       <section
-        className="py-32 md:py-48 px-6 md:px-12 border-t"
+        className="py-14 md:py-48 px-6 md:px-12 border-t"
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div className="max-w-7xl mx-auto">
@@ -290,7 +290,7 @@ export default function AboutPage() {
 
       {/* Experience */}
       <section
-        className="py-32 md:py-48 px-6 md:px-12 border-t"
+        className="py-14 md:py-48 px-6 md:px-12 border-t"
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div className="max-w-7xl mx-auto">
@@ -350,7 +350,7 @@ export default function AboutPage() {
 
       {/* Skills */}
       <section
-        className="py-32 md:py-48 px-6 md:px-12 border-t"
+        className="py-14 md:py-48 px-6 md:px-12 border-t"
         style={{ borderColor: "rgba(255,255,255,0.06)" }}
       >
         <div className="max-w-7xl mx-auto">

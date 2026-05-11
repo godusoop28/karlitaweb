@@ -28,8 +28,8 @@ html {
   color: #e8e0d0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Smooth scroll base — Lenis overrides this */
   scroll-behavior: auto;
+  overflow-x: hidden;
 }
 
 body {
@@ -149,13 +149,12 @@ body::after {
 }
 
 /* ── Navbar offset for pages with top-aligned headers ──────────────── */
-/* Navbar height: ~111px mobile (87px logo + 24px py-3) / ~137px desktop (113px logo + 24px py-3) */
 .page-header-offset {
-  padding-top: 148px;
+  padding-top: 120px;
 }
 @media (min-width: 768px) {
   .page-header-offset {
-    padding-top: 200px;
+    padding-top: 180px;
   }
 }
 
