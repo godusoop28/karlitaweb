@@ -11,11 +11,6 @@ const contactItems = [
     value: "karlaqrc201200@gmail.com",
     href: "mailto:karlaqrc201200@gmail.com",
   },
-  {
-    label: "Teléfono",
-    value: "777 374 9882",
-    href: "tel:7773749882",
-  },
 ];
 
 export default function ContactPage() {
@@ -55,7 +50,7 @@ export default function ContactPage() {
             animate={{ scaleX: 1 }}
             transition={{ duration: 1.1, delay: 0.8, ease: EASE }}
             className="my-8"
-            style={{ height: "1px", background: "linear-gradient(to right, rgba(130,80,210,0.5), rgba(210,95,140,0.35), rgba(70,165,120,0.25), transparent)" }}
+            style={{ height: "1px", background: "linear-gradient(to right, rgba(130,80,210,0.65), rgba(210,95,140,0.5), rgba(70,165,120,0.3), transparent)" }}
           />
 
           <FadeIn delay={0.9}>

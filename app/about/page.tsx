@@ -175,8 +175,8 @@ export default function AboutPage() {
 
               <FadeIn delay={0.2}>
                 <div
-                  className="w-16"
-                  style={{ height: "1px", background: "linear-gradient(to right, rgba(130,80,210,0.6), rgba(210,95,140,0.45), rgba(70,165,120,0.35))" }}
+                  className="w-20"
+                  style={{ height: "1px", background: "linear-gradient(to right, rgba(130,80,210,0.75), rgba(210,95,140,0.6), rgba(70,165,120,0.35), transparent)" }}
                 />
               </FadeIn>
 
@@ -215,18 +215,14 @@ export default function AboutPage() {
                 </p>
               </FadeIn>
 
-              {/* Language tags */}
+              {/* Languages */}
               <FadeIn delay={0.4}>
-                <div className="flex gap-3 flex-wrap pt-2">
+                <div className="flex gap-8 flex-wrap pt-2">
                   {["Español (Nativo)", "Inglés (Intermedio)"].map((lang) => (
                     <span
                       key={lang}
-                      className="text-xs tracking-[0.1em] uppercase px-3 py-1.5 border"
-                      style={{
-                        borderColor: "rgba(255,255,255,0.08)",
-                        color: "rgba(232,224,208,0.35)",
-                        fontFamily: "var(--font-dm-sans)",
-                      }}
+                      className="text-xs tracking-[0.14em] uppercase"
+                      style={{ color: "rgba(232,224,208,0.3)", fontFamily: "var(--font-dm-sans)" }}
                     >
                       {lang}
                     </span>
@@ -367,15 +363,13 @@ export default function AboutPage() {
                 Habilidades
               </p>
             </FadeIn>
-            <StaggerContainer className="md:col-span-8 flex flex-wrap gap-2">
+            <StaggerContainer className="md:col-span-8 flex flex-wrap gap-x-8 gap-y-3">
               {skills.map((skill) => (
                 <motion.span
                   key={skill}
                   variants={staggerItem}
-                  className="skill-tag text-sm px-4 py-2"
-                  style={{
-                    fontFamily: "var(--font-dm-sans)",
-                  }}
+                  className="text-sm"
+                  style={{ color: "rgba(232,224,208,0.4)", fontFamily: "var(--font-dm-sans)" }}
                 >
                   {skill}
                 </motion.span>

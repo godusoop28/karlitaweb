@@ -54,8 +54,8 @@ export function Navbar() {
           backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "blur(10px)",
           WebkitBackdropFilter: scrolled ? "blur(20px) saturate(180%)" : "blur(10px)",
           borderBottom: scrolled
-            ? "1px solid rgba(255,255,255,0.07)"
-            : "1px solid rgba(255,255,255,0.03)",
+            ? "1px solid rgba(130,80,210,0.18)"
+            : "1px solid rgba(255,255,255,0.02)",
         }}
       >
         <div className="flex items-center justify-between px-6 md:px-10 lg:px-14 py-3">
@@ -87,7 +87,7 @@ export function Navbar() {
             {/* Desktop */}
             <div
               className="relative hidden md:block"
-              style={{ width: "220px", height: "147px" }}
+              style={{ width: "170px", height: "113px" }}
             >
               <Image
                 src={logoSrc}
@@ -172,7 +172,7 @@ export function Navbar() {
           >
             {/* Logo en el menú — alineado a la izquierda como en la barra */}
             <div className="absolute top-4 left-6">
-              <div className="relative" style={{ width: "130px", height: "87px" }}>
+              <div className="relative" style={{ width: "110px", height: "73px" }}>
                 <Image
                   src={logoSrc}
                   alt="Karlita Rodríguez"

@@ -73,7 +73,7 @@ export default function ProjectsPage() {
                     <div className="col-span-1 flex items-start pt-2">
                       <span
                         className="text-xs"
-                        style={{ color: "rgba(130,80,210,0.38)", fontFamily: "var(--font-dm-sans)" }}
+                        style={{ color: "rgba(130,80,210,0.65)", fontFamily: "var(--font-dm-sans)" }}
                       >
                         {String(i + 1).padStart(2, "0")}
                       </span>

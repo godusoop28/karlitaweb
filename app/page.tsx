@@ -24,19 +24,19 @@ function Hero() {
       className="relative min-h-[100dvh] flex flex-col justify-end overflow-hidden"
       style={{ background: "#0a0a0a" }}
     >
-      {/* Accent glows — subtle color atmosphere */}
+      {/* Accent glows */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 55% 45% at 75% 65%, rgba(130,80,210,0.05) 0%, transparent 70%)",
+            "radial-gradient(ellipse 55% 45% at 75% 65%, rgba(130,80,210,0.08) 0%, transparent 70%)",
         }}
       />
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 40% 30% at 18% 78%, rgba(210,95,140,0.04) 0%, transparent 65%)",
+            "radial-gradient(ellipse 40% 30% at 18% 78%, rgba(210,95,140,0.07) 0%, transparent 65%)",
         }}
       />
 
@@ -161,7 +161,7 @@ function Hero() {
               Ver Trabajo
               <span
                 className="block transition-all duration-500 group-hover:translate-x-1"
-                style={{ width: "36px", height: "1px", background: "currentColor" }}
+                style={{ width: "36px", height: "1px", background: "linear-gradient(to right, rgba(130,80,210,0.7), rgba(210,95,140,0.5))" }}
               />
             </Link>
           </motion.div>
@@ -181,7 +181,7 @@ function Hero() {
           style={{
             width: "1px",
             height: "52px",
-            background: "linear-gradient(to bottom, transparent, rgba(232,224,208,0.25))",
+            background: "linear-gradient(to bottom, transparent, rgba(130,80,210,0.55), rgba(210,95,140,0.3))",
           }}
         />
       </motion.div>
@@ -272,7 +272,7 @@ function FeaturedProjects() {
                       {/* Index */}
                       <span
                         className="text-xs pt-1 flex-shrink-0"
-                        style={{ color: "rgba(130,80,210,0.3)", fontFamily: "var(--font-dm-sans)" }}
+                        style={{ color: "rgba(130,80,210,0.6)", fontFamily: "var(--font-dm-sans)" }}
                       >
                         0{i + 1}
                       </span>
@@ -371,7 +371,7 @@ function AboutTeaser() {
               >
                 He sido fotógrafa
                 <br />
-                <span style={{ color: "rgba(232,224,208,0.38)", fontStyle: "italic" }}>
+                <span style={{ color: "rgba(210,110,155,0.55)", fontStyle: "italic" }}>
                   desde 2019.
                 </span>
               </h2>
@@ -523,11 +523,14 @@ function ContactCTA() {
           <div className="mt-10 md:mt-12">
             <Link
               href="/contact"
-              className="inline-flex items-center gap-3 text-xs tracking-[0.22em] uppercase px-7 py-3.5 border transition-all duration-500 hover:bg-white/[0.04] group"
-              style={{ borderColor: "rgba(255,255,255,0.1)", color: "rgba(232,224,208,0.45)", fontFamily: "var(--font-dm-sans)" }}
+              className="inline-flex items-center gap-4 text-xs tracking-[0.22em] uppercase group"
+              style={{ color: "rgba(232,224,208,0.4)", fontFamily: "var(--font-dm-sans)" }}
             >
               Ir a Contacto
-              <span className="transition-transform duration-500 group-hover:translate-x-1">→</span>
+              <span
+                className="block transition-all duration-500 group-hover:translate-x-1.5"
+                style={{ width: "36px", height: "1px", background: "currentColor" }}
+              />
             </Link>
           </div>
         </FadeIn>

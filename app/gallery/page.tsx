@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image, { StaticImageData } from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
+import type { PanInfo } from "framer-motion";
 import { FadeIn } from "@/components/FadeIn";
 
 
@@ -79,21 +80,6 @@ const photos: Photo[] = [
 ];
 
 
-// ── Fotografías sugeridas (pendientes) ────────────────────────────────────────
-const pendingPhotos = [
-  {
-    id: 104,
-    filename: "8m-horizontal.jpg",
-    description: "Fotografía panorámica de la marcha 8M para hero del proyecto",
-    hint: "Gran angular 16:9 o 21:9.",
-  },
-  {
-    id: 105,
-    filename: "freelance-reciente.jpg",
-    description: "Fotografía reciente — trabajo independiente 2025",
-    hint: "Tu pieza más representativa actual.",
-  },
-];
 
 // ── Lightbox ──────────────────────────────────────────────────────────────────
 function Lightbox({
@@ -109,11 +95,29 @@ function Lightbox({
   onPrev: () => void;
   onNext: () => void;
 }) {
+  const x = useMotionValue(0);
+
+  const prevIdx = (index - 1 + photos.length) % photos.length;
+  const nextIdx = (index + 1) % photos.length;
+
+  // Adjacent photos are always exactly one viewport-width away from the current
+  const prevX = useTransform(x, (v) => v - window.innerWidth);
+  const nextX = useTransform(x, (v) => v + window.innerWidth);
+
+  // Current photo scales down slightly while dragging — cinematic feel
+  const currScale = useTransform(x, [-160, 0, 160], [0.92, 1, 0.92]);
+
+  // Reset position when navigating
+  useEffect(() => {
+    x.set(0);
+  }, [index, x]);
+
+  // Keyboard navigation
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") onPrev();
-      if (e.key === "ArrowRight") onNext();
+      if (e.key === "ArrowLeft") navigate("prev");
+      if (e.key === "ArrowRight") navigate("next");
     };
     window.addEventListener("keydown", onKey);
     document.body.style.overflow = "hidden";
@@ -121,9 +125,48 @@ function Lightbox({
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onClose, onPrev, onNext]);
 
+  function navigate(dir: "prev" | "next") {
+    const vw = window.innerWidth;
+    const target = dir === "next" ? -vw : vw;
+    animate(x, target, {
+      duration: 0.3,
+      ease: [0.4, 0, 0.2, 1],
+      onComplete: () => {
+        if (dir === "next") onNext();
+        else onPrev();
+        x.set(0);
+      },
+    });
+  }
+
+  function handleDragEnd(_: PointerEvent, info: PanInfo) {
+    const { offset, velocity } = info;
+    if (offset.x < -52 || velocity.x < -420) {
+      navigate("next");
+    } else if (offset.x > 52 || velocity.x > 420) {
+      navigate("prev");
+    } else {
+      // Not enough — spring back
+      animate(x, 0, { type: "spring", stiffness: 320, damping: 32 });
+    }
+  }
+
   const photo = photos[index];
+
+  const imgStyle: React.CSSProperties = {
+    maxHeight: "78vh",
+    maxWidth: "88vw",
+    width: "auto",
+    height: "auto",
+    objectFit: "contain",
+    display: "block",
+    userSelect: "none",
+    pointerEvents: "none",
+    draggable: false,
+  } as React.CSSProperties;
 
   return (
     <motion.div
@@ -131,14 +174,13 @@ function Lightbox({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[200] flex items-center justify-center"
-      style={{ background: "rgba(4,4,4,0.98)" }}
-      onClick={onClose}
+      className="fixed inset-0 z-[200] overflow-hidden select-none"
+      style={{ background: "rgba(4,4,4,0.98)", touchAction: "none" }}
     >
       {/* Close */}
       <button
-        className="absolute top-5 right-6 z-10 text-xl p-2 transition-opacity duration-300"
-        style={{ color: "rgba(232,224,208,0.4)" }}
+        className="absolute top-5 right-6 z-30 text-xl p-2 transition-opacity duration-300 hover:opacity-70"
+        style={{ color: "rgba(232,224,208,0.5)" }}
         onClick={onClose}
         aria-label="Cerrar"
       >
@@ -147,68 +189,83 @@ function Lightbox({
 
       {/* Counter */}
       <p
-        className="absolute top-6 left-1/2 -translate-x-1/2 text-xs tracking-[0.25em] uppercase"
+        className="absolute top-6 left-1/2 -translate-x-1/2 z-30 text-xs tracking-[0.25em] uppercase pointer-events-none"
         style={{ color: "rgba(232,224,208,0.2)", fontFamily: "var(--font-dm-sans)" }}
       >
         {index + 1} / {photos.length}
       </p>
 
-      {/* Prev */}
+      {/* Desktop nav buttons */}
       <button
-        className="absolute left-4 md:left-7 z-10 p-3 text-lg md:text-xl"
-        style={{ color: "rgba(232,224,208,0.3)" }}
-        onClick={(e) => { e.stopPropagation(); onPrev(); }}
+        className="absolute left-5 top-1/2 -translate-y-1/2 z-30 p-3 text-xl hidden md:block transition-opacity duration-300 hover:opacity-70"
+        style={{ color: "rgba(232,224,208,0.35)" }}
+        onClick={() => navigate("prev")}
         aria-label="Anterior"
       >
         ←
       </button>
-
-      {/* Image */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={photo.id}
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 0.28 }}
-          className="relative flex items-center justify-center px-16 md:px-20"
-          style={{ maxWidth: "90vw", maxHeight: "82vh" }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <Image
-            src={photo.src}
-            alt={photo.label}
-            style={{
-              maxHeight: "78vh",
-              maxWidth: "86vw",
-              width: "auto",
-              height: "auto",
-              objectFit: "contain",
-              display: "block",
-            }}
-            placeholder="blur"
-          />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* Next */}
       <button
-        className="absolute right-4 md:right-7 z-10 p-3 text-lg md:text-xl"
-        style={{ color: "rgba(232,224,208,0.3)" }}
-        onClick={(e) => { e.stopPropagation(); onNext(); }}
+        className="absolute right-5 top-1/2 -translate-y-1/2 z-30 p-3 text-xl hidden md:block transition-opacity duration-300 hover:opacity-70"
+        style={{ color: "rgba(232,224,208,0.35)" }}
+        onClick={() => navigate("next")}
         aria-label="Siguiente"
       >
         →
       </button>
 
-      {/* Caption */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-center whitespace-nowrap">
-        <p className="text-sm mb-0.5" style={{ color: "rgba(232,224,208,0.55)", fontFamily: "var(--font-dm-sans)" }}>
-          {photo.label}
-        </p>
-        <p className="text-xs tracking-[0.18em] uppercase" style={{ color: "rgba(232,224,208,0.22)", fontFamily: "var(--font-dm-sans)" }}>
-          {photo.category}{photo.year ? ` · ${photo.year}` : ""}
-        </p>
+      {/* Previous photo — peeks in from the left while dragging right */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        style={{ x: prevX }}
+      >
+        <Image src={photos[prevIdx].src} alt={photos[prevIdx].label} style={imgStyle} placeholder="blur" />
+      </motion.div>
+
+      {/* Next photo — peeks in from the right while dragging left */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        style={{ x: nextX }}
+      >
+        <Image src={photos[nextIdx].src} alt={photos[nextIdx].label} style={imgStyle} placeholder="blur" />
+      </motion.div>
+
+      {/* Current photo — draggable strip */}
+      <motion.div
+        className="absolute inset-0 flex items-center justify-center"
+        drag="x"
+        dragMomentum={false}
+        style={{ x, scale: currScale, cursor: "grab" }}
+        onDragEnd={handleDragEnd}
+        whileTap={{ cursor: "grabbing" }}
+      >
+        <Image src={photo.src} alt={photo.label} style={imgStyle} placeholder="blur" />
+      </motion.div>
+
+      {/* Caption — animates per photo */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 text-center whitespace-nowrap pointer-events-none">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 5 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -5 }}
+            transition={{ duration: 0.22 }}
+          >
+            <p className="text-sm mb-0.5" style={{ color: "rgba(232,224,208,0.55)", fontFamily: "var(--font-dm-sans)" }}>
+              {photo.label}
+            </p>
+            <p className="text-xs tracking-[0.18em] uppercase" style={{ color: "rgba(232,224,208,0.22)", fontFamily: "var(--font-dm-sans)" }}>
+              {photo.category}{photo.year ? ` · ${photo.year}` : ""}
+            </p>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Mobile swipe hint — faint arrows */}
+      <div className="absolute bottom-[76px] left-1/2 -translate-x-1/2 z-30 flex items-center gap-2 md:hidden pointer-events-none">
+        <span style={{ color: "rgba(232,224,208,0.18)", fontSize: "10px", letterSpacing: "0.05em" }}>←</span>
+        <div style={{ width: "28px", height: "1px", background: "linear-gradient(to right, rgba(130,80,210,0.25), rgba(210,95,140,0.2))" }} />
+        <span style={{ color: "rgba(232,224,208,0.18)", fontSize: "10px", letterSpacing: "0.05em" }}>→</span>
       </div>
     </motion.div>
   );
@@ -220,100 +277,32 @@ function GalleryCard({ photo, index, onClick }: { photo: Photo; index: number; o
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.55, delay: index * 0.04, ease: EASE }}
-      className="flex flex-col cursor-pointer group"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: Math.min(index * 0.028, 0.65), ease: EASE }}
+      style={{ breakInside: "avoid", marginBottom: "5px", cursor: "pointer" }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onClick}
     >
-      {/* Photo frame — fixed height, foto centrada con contain, sin recorte */}
-      <div
-        style={{
-          height: "clamp(160px, 22vw, 280px)",
-          background: "#0e0e0e",
-          padding: "14px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          position: "relative",
-          overflow: "hidden",
-          borderBottom: hovered ? "1px solid rgba(130,80,210,0.4)" : "1px solid transparent",
-          boxShadow: hovered ? "0 8px 32px rgba(130,80,210,0.12)" : "none",
-          transition: "border-color 0.4s ease, box-shadow 0.4s ease",
-        }}
-      >
-        {/* Inner container for the photo — fills frame after padding */}
+      <div style={{ position: "relative", overflow: "hidden" }}>
         <div
           style={{
-            position: "relative",
-            width: "100%",
-            height: "100%",
-            transition: "transform 0.65s cubic-bezier(0.22,1,0.36,1)",
+            transition: "transform 0.85s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease",
             transform: hovered ? "scale(1.04)" : "scale(1)",
+            opacity: hovered ? 0.75 : 1,
           }}
         >
           <Image
             src={photo.src}
             alt={photo.label}
-            fill
-            style={{ objectFit: "contain" }}
+            width={photo.src.width}
+            height={photo.src.height}
+            style={{ width: "100%", height: "auto", display: "block" }}
             placeholder="blur"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
         </div>
-
-        {/* Hover overlay — muy sutil */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "rgba(0,0,0,0.18)",
-            opacity: hovered ? 1 : 0,
-            transition: "opacity 0.4s ease",
-            pointerEvents: "none",
-          }}
-        />
-
-        {/* Expand icon on hover */}
-        <div
-          style={{
-            position: "absolute",
-            top: "12px",
-            right: "12px",
-            opacity: hovered ? 0.6 : 0,
-            transition: "opacity 0.4s ease",
-            color: "#e8e0d0",
-            fontSize: "11px",
-            letterSpacing: "0.1em",
-            fontFamily: "var(--font-dm-sans)",
-          }}
-        >
-          ↗
-        </div>
-      </div>
-
-      {/* Caption — debajo del frame, como etiqueta de galería */}
-      <div style={{ paddingTop: "8px", paddingBottom: "4px" }}>
-        <p
-          className="text-xs leading-4"
-          style={{ color: "rgba(232,224,208,0.5)", fontFamily: "var(--font-dm-sans)" }}
-        >
-          {photo.label}
-        </p>
-        <p
-          style={{
-            fontSize: "10px",
-            color: "rgba(140,95,210,0.45)",
-            fontFamily: "var(--font-dm-sans)",
-            letterSpacing: "0.12em",
-            textTransform: "uppercase",
-            marginTop: "2px",
-          }}
-        >
-          {photo.category}{photo.year ? ` · ${photo.year}` : ""}
-        </p>
       </div>
     </motion.div>
   );
@@ -369,13 +358,15 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* ── Grid de galería ──
-           4 columnas en desktop, 3 en md, 2 en sm.
-           Cada foto en un frame oscuro de altura controlada.
-           object-fit: contain — muestra la foto completa sin recortar. */}
+      {/* ── Masonry editorial ── */}
       <section className="pb-20 md:pb-32 px-6 md:px-10 lg:px-14">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-5">
+          <div
+            style={{
+              columns: "3 200px",
+              columnGap: "5px",
+            }}
+          >
             {photos.map((photo, idx) => (
               <GalleryCard
                 key={photo.id}
@@ -383,58 +374,6 @@ export default function GalleryPage() {
                 index={idx}
                 onClick={() => openLightbox(idx)}
               />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Fotos pendientes ── */}
-      <section
-        className="pb-24 px-6 md:px-10 lg:px-14 border-t pt-14"
-        style={{ borderColor: "rgba(255,255,255,0.05)" }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <FadeIn>
-            <p
-              className="text-xs tracking-[0.25em] uppercase mb-10"
-              style={{ color: "rgba(232,224,208,0.15)", fontFamily: "var(--font-dm-sans)" }}
-            >
-              Fotografías sugeridas — pendientes de agregar
-            </p>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {pendingPhotos.map((ph, i) => (
-              <FadeIn key={ph.id} delay={i * 0.06}>
-                <div
-                  className="p-5 border"
-                  style={{
-                    borderColor: "rgba(255,255,255,0.06)",
-                    borderStyle: "dashed",
-                    background: "rgba(255,255,255,0.012)",
-                    minHeight: "160px",
-                  }}
-                >
-                  <p
-                    className="text-[10px] tracking-[0.1em] uppercase mb-2.5"
-                    style={{ color: "rgba(139,123,139,0.45)", fontFamily: "var(--font-dm-sans)" }}
-                  >
-                    {ph.filename}
-                  </p>
-                  <p
-                    className="text-sm leading-6 mb-3"
-                    style={{ color: "rgba(232,224,208,0.4)", fontFamily: "var(--font-dm-sans)" }}
-                  >
-                    {ph.description}
-                  </p>
-                  <p
-                    className="text-xs italic leading-5"
-                    style={{ color: "rgba(232,224,208,0.2)", fontFamily: "var(--font-dm-sans)" }}
-                  >
-                    {ph.hint}
-                  </p>
-                </div>
-              </FadeIn>
             ))}
           </div>
         </div>
